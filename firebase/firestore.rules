@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User profile access
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Public tokens read (for live public queue display), creation for authenticated/walk-in users
+    match /tokens/{tokenId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if request.auth != null;
+    }
+
+    // Doctors read public, update by doctor/admin
+    match /doctors/{doctorId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Departments read public
+    match /departments/{deptId} {
+      allow read: if true;
+    }
+  }
+}
