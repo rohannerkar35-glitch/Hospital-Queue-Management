@@ -33,7 +33,7 @@ export default function QueueTracker({
   const completedTokens = deptTokens.filter(t => t.status === 'COMPLETED');
 
   // Find demo patient token
-  const myToken = deptTokens.find(t => t.patientName.includes('Alex Morgan') || t.tokenNumber === 'CARD-104');
+  const myToken = deptTokens.find(t => t.patientName.includes('Om Kulkarni') || t.patientName.includes('Alex Morgan') || t.tokenNumber === 'CARD-104');
 
   const deptInfo = DEPARTMENTS.find(d => d.name === selectedDeptFilter) || DEPARTMENTS[0];
 
@@ -64,8 +64,8 @@ export default function QueueTracker({
                 onClick={() => setSelectedDeptFilter(dept.name)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                   selectedDeptFilter === dept.name
-                    ? 'bg-[#0066CC] text-white shadow-md'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                    ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-red-200'
                 }`}
               >
                 {dept.name}
@@ -79,7 +79,7 @@ export default function QueueTracker({
           
           {/* NOW SERVING BIG MONITOR DISPLAY */}
           <div className="lg:col-span-8 bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-slate-800 space-y-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex justify-between items-center pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export default function QueueTracker({
                   PUBLIC OPD BOARD — {selectedDeptFilter.toUpperCase()}
                 </span>
               </div>
-              <span className="px-3 py-1 rounded-md bg-slate-800 text-blue-400 text-xs font-mono font-bold">
+              <span className="px-3 py-1 rounded-md bg-slate-800 text-red-400 text-xs font-mono font-bold">
                 ROOM 102 (East Wing)
               </span>
             </div>
@@ -137,7 +137,7 @@ export default function QueueTracker({
                 <span className="text-emerald-400 font-bold">Queue Moving Smoothly (98% Velocity)</span>
               </div>
               <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
-                <div className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full w-[75%] animate-pulse" />
+                <div className="bg-gradient-to-r from-red-500 via-rose-500 to-red-600 h-full rounded-full w-[75%] animate-pulse" />
               </div>
             </div>
 
@@ -168,18 +168,18 @@ export default function QueueTracker({
             <div>
               <div className="flex justify-between items-start mb-4">
                 <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400">PATIENT LIVE TRACKER</span>
-                <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-[#0066CC] text-[10px] font-bold">
+                <span className="px-2.5 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200 text-[10px] font-bold">
                   Auto-Refreshing
                 </span>
               </div>
 
               {myToken ? (
                 <div className="space-y-4">
-                  <div className="p-4 rounded-2xl bg-blue-50/80 dark:bg-slate-700/60 border border-blue-100 dark:border-slate-600 space-y-2">
+                  <div className="p-4 rounded-2xl bg-red-50/70 dark:bg-slate-700/60 border border-red-100 dark:border-slate-600 space-y-2">
                     <p className="text-xs text-slate-500 font-semibold">Your Token Number</p>
-                    <p className="text-3xl font-black text-[#0066CC] dark:text-blue-400">{myToken.tokenNumber}</p>
+                    <p className="text-3xl font-black text-red-600 dark:text-red-400">{myToken.tokenNumber}</p>
                     
-                    <div className="pt-2 border-t border-blue-100 dark:border-slate-600 flex justify-between text-xs">
+                    <div className="pt-2 border-t border-red-100 dark:border-slate-600 flex justify-between text-xs">
                       <span className="text-slate-600 dark:text-slate-300">Your Position:</span>
                       <strong className="text-emerald-600 font-bold">#{myToken.queuePosition} in line</strong>
                     </div>
@@ -219,7 +219,7 @@ export default function QueueTracker({
           
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#0066CC]" /> Next Tokens Waiting in Line ({waitingTokens.length})
+              <Users className="w-5 h-5 text-red-600" /> Next Tokens Waiting in Line ({waitingTokens.length})
             </h3>
             <span className="text-xs text-slate-400">Department: {selectedDeptFilter}</span>
           </div>
@@ -241,20 +241,20 @@ export default function QueueTracker({
                   <tr 
                     key={t.id}
                     className={`hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors ${
-                      t.patientName.includes('Alex Morgan') ? 'bg-blue-50/60 dark:bg-blue-950/40 font-bold' : ''
+                      t.patientName.includes('Om Kulkarni') || t.patientName.includes('Alex Morgan') ? 'bg-red-50/60 dark:bg-red-950/40 font-bold' : ''
                     }`}
                   >
                     <td className="py-3.5 px-4 font-mono font-bold text-slate-500">#{idx + 1}</td>
-                    <td className="py-3.5 px-4 font-mono font-black text-[#0066CC] dark:text-blue-400">{t.tokenNumber}</td>
+                    <td className="py-3.5 px-4 font-mono font-black text-red-600 dark:text-red-400">{t.tokenNumber}</td>
                     <td className="py-3.5 px-4 font-semibold text-slate-800 dark:text-slate-200">
-                      {t.patientName} {t.patientName.includes('Alex Morgan') && '(YOU)'}
+                      {t.patientName} {(t.patientName.includes('Om Kulkarni') || t.patientName.includes('Alex Morgan')) && '(YOU)'}
                     </td>
                     <td className="py-3.5 px-4 text-slate-500">{t.slotTime}</td>
                     <td className="py-3.5 px-4 font-bold text-emerald-600">{t.estWaitMins} mins</td>
                     <td className="py-3.5 px-4">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
                         t.status === 'CALLING' ? 'bg-emerald-100 text-emerald-800 animate-pulse' :
-                        t.status === 'IN_CONSULTATION' ? 'bg-blue-100 text-blue-800' :
+                        t.status === 'IN_CONSULTATION' ? 'bg-red-100 text-red-800' :
                         t.status === 'COMPLETED' ? 'bg-slate-200 text-slate-700' :
                         'bg-amber-100 text-amber-800'
                       }`}>

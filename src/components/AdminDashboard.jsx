@@ -31,10 +31,11 @@ import {
 } from 'recharts';
 import { ADMIN_ANALYTICS, DEPARTMENTS } from '../data/hospitalData';
 
-export default function AdminDashboard({ tokens, doctors }) {
+export default function AdminDashboard({ tokens, doctors, authSession }) {
   const [adminTab, setAdminTab] = useState('analytics'); // analytics, doctors, queue, departments
 
-  const COLORS = ['#0066CC', '#00B894', '#3B82F6', '#6366F1', '#EC4899', '#14B8A6', '#8B5CF6'];
+  const COLORS = ['#DC2626', '#EF4444', '#F87171', '#FB7185', '#E11D48', '#BE123C', '#991B1B'];
+  const adminName = authSession?.name || 'Rohan Nerkar';
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 py-8 px-4 sm:px-6 lg:px-8">
@@ -43,9 +44,14 @@ export default function AdminDashboard({ tokens, doctors }) {
         {/* Top Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 font-extrabold text-xs uppercase tracking-wider">
-              ADMINISTRATION & ANALYTICS CONSOLE
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 font-extrabold text-xs uppercase tracking-wider">
+                ADMINISTRATION & ANALYTICS CONSOLE
+              </span>
+              <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs">
+                Director: <strong className="text-red-600">{adminName}</strong>
+              </span>
+            </div>
             <h1 className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               Hospital OPD Command Center
             </h1>
@@ -73,7 +79,7 @@ export default function AdminDashboard({ tokens, doctors }) {
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Total Today Visits</p>
                 <p className="text-3xl font-black text-slate-900 dark:text-white mt-1">540 Patients</p>
               </div>
-              <div className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-900/50 text-[#0066CC] flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-2xl bg-red-50 dark:bg-red-950/50 text-red-600 flex items-center justify-center font-bold">
                 <Users className="w-5 h-5" />
               </div>
             </div>
@@ -88,7 +94,7 @@ export default function AdminDashboard({ tokens, doctors }) {
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Avg OPD Wait Time</p>
                 <p className="text-3xl font-black text-slate-900 dark:text-white mt-1">11.4 Mins</p>
               </div>
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-900/50 text-[#00B894] flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-2xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 flex items-center justify-center font-bold">
                 <Clock className="w-5 h-5" />
               </div>
             </div>
@@ -131,7 +137,7 @@ export default function AdminDashboard({ tokens, doctors }) {
             onClick={() => setAdminTab('analytics')}
             className={`pb-3 px-4 transition-all cursor-pointer ${
               adminTab === 'analytics'
-                ? 'border-b-2 border-[#0066CC] text-[#0066CC] dark:text-blue-400'
+                ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400'
                 : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
             }`}
           >
@@ -141,7 +147,7 @@ export default function AdminDashboard({ tokens, doctors }) {
             onClick={() => setAdminTab('doctors')}
             className={`pb-3 px-4 transition-all cursor-pointer ${
               adminTab === 'doctors'
-                ? 'border-b-2 border-[#0066CC] text-[#0066CC] dark:text-blue-400'
+                ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400'
                 : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
             }`}
           >
@@ -151,7 +157,7 @@ export default function AdminDashboard({ tokens, doctors }) {
             onClick={() => setAdminTab('queue')}
             className={`pb-3 px-4 transition-all cursor-pointer ${
               adminTab === 'queue'
-                ? 'border-b-2 border-[#0066CC] text-[#0066CC] dark:text-blue-400'
+                ? 'border-b-2 border-red-600 text-red-600 dark:text-red-400'
                 : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
             }`}
           >
@@ -179,7 +185,7 @@ export default function AdminDashboard({ tokens, doctors }) {
                       <XAxis dataKey="hour" stroke="#94a3b8" fontSize={11} />
                       <YAxis stroke="#94a3b8" fontSize={11} />
                       <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '12px' }} />
-                      <Bar dataKey="visits" fill="#0066CC" radius={[6, 6, 0, 0]} />
+                      <Bar dataKey="visits" fill="#DC2626" radius={[6, 6, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -189,7 +195,7 @@ export default function AdminDashboard({ tokens, doctors }) {
               <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700 space-y-4">
                 <div className="flex justify-between items-center">
                   <h3 className="font-bold text-slate-900 dark:text-white text-base">Waiting Time Trends (Minutes)</h3>
-                  <span className="text-xs text-emerald-600 font-bold">Peak at 10 AM (18m)</span>
+                  <span className="text-xs text-red-600 font-bold">Peak at 10 AM (18m)</span>
                 </div>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
@@ -198,7 +204,7 @@ export default function AdminDashboard({ tokens, doctors }) {
                       <XAxis dataKey="hour" stroke="#94a3b8" fontSize={11} />
                       <YAxis stroke="#94a3b8" fontSize={11} />
                       <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '12px' }} />
-                      <Area type="monotone" dataKey="waitMins" stroke="#00B894" fill="#00B894" fillOpacity={0.2} />
+                      <Area type="monotone" dataKey="waitMins" stroke="#DC2626" fill="#DC2626" fillOpacity={0.2} />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -219,7 +225,7 @@ export default function AdminDashboard({ tokens, doctors }) {
                       <XAxis type="number" stroke="#94a3b8" fontSize={11} />
                       <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={11} width={90} />
                       <Tooltip contentStyle={{ borderRadius: '12px', fontSize: '12px' }} />
-                      <Bar dataKey="patients" fill="#0066CC" radius={[0, 6, 6, 0]} />
+                      <Bar dataKey="patients" fill="#DC2626" radius={[0, 6, 6, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -262,7 +268,7 @@ export default function AdminDashboard({ tokens, doctors }) {
               <h3 className="font-bold text-slate-900 dark:text-white text-lg">Active Doctor Roster & Utilization</h3>
               <button 
                 onClick={() => alert('Doctor Addition Form Modal...')}
-                className="px-4 py-2 rounded-xl bg-[#0066CC] text-white font-bold text-xs hover:bg-[#0052A3] cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-red-600 text-white font-bold text-xs hover:bg-red-700 shadow-md shadow-red-600/20 cursor-pointer"
               >
                 + Add Doctor to Roster
               </button>

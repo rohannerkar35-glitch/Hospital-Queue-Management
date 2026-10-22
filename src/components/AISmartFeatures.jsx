@@ -47,7 +47,7 @@ export default function AISmartFeatures({ setActiveTab }) {
           {/* Controls & Parameters */}
           <div className="lg:col-span-6 bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-6">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Brain className="w-6 h-6 text-[#0066CC]" /> AI Simulator Parameters
+              <Brain className="w-6 h-6 text-red-600" /> AI Simulator Parameters
             </h2>
 
             <div className="space-y-5 text-xs">
@@ -68,7 +68,7 @@ export default function AISmartFeatures({ setActiveTab }) {
               <div>
                 <div className="flex justify-between font-bold text-slate-700 dark:text-slate-300 mb-1">
                   <span>Current Active Patients in Queue:</span>
-                  <span className="text-[#0066CC]">{simulatedWalkIns} Patients</span>
+                  <span className="text-red-600 font-extrabold">{simulatedWalkIns} Patients</span>
                 </div>
                 <input
                   type="range"
@@ -76,7 +76,7 @@ export default function AISmartFeatures({ setActiveTab }) {
                   max="50"
                   value={simulatedWalkIns}
                   onChange={(e) => setSimulatedWalkIns(parseInt(e.target.value))}
-                  className="w-full accent-[#0066CC] cursor-pointer"
+                  className="w-full accent-red-600 cursor-pointer"
                 />
               </div>
 
@@ -99,18 +99,18 @@ export default function AISmartFeatures({ setActiveTab }) {
           </div>
 
           {/* AI Output Card */}
-          <div className="lg:col-span-6 bg-gradient-to-br from-[#0066CC] to-[#00B894] rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden">
+          <div className="lg:col-span-6 bg-gradient-to-br from-red-600 via-rose-600 to-red-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-red-900/10 flex flex-col justify-between space-y-6 relative overflow-hidden">
             <div className="absolute right-0 bottom-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-4 relative z-10">
-              <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] uppercase tracking-wider font-extrabold">
+              <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] uppercase tracking-wider font-extrabold border border-white/30">
                 PREDICTIVE OUTPUT RESULT
               </span>
 
               <div>
-                <p className="text-xs text-blue-100 font-semibold">Predicted Wait Time for {selectedDept.name}</p>
+                <p className="text-xs text-red-100 font-semibold">Predicted Wait Time for {selectedDept.name}</p>
                 <p className="text-5xl font-black tracking-tight mt-1">{predictedWaitTime} Mins</p>
-                <p className="text-xs text-blue-100 mt-1">Accuracy Score: 96.4% confidence interval</p>
+                <p className="text-xs text-red-100 mt-1">Accuracy Score: 96.4% confidence interval</p>
               </div>
 
               <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-xs space-y-1">
@@ -129,7 +129,7 @@ export default function AISmartFeatures({ setActiveTab }) {
             <div className="pt-4 border-t border-white/20 relative z-10">
               <button
                 onClick={() => setActiveTab('booking')}
-                className="w-full py-3.5 rounded-2xl bg-white text-[#0066CC] hover:bg-blue-50 font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-2xl bg-white text-red-600 hover:bg-red-50 font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <span>Book Slot in Off-Peak Window</span>
                 <ArrowRight className="w-4 h-4" />
@@ -154,7 +154,7 @@ export default function AISmartFeatures({ setActiveTab }) {
           </div>
 
           <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-[#0066CC] flex items-center justify-center font-bold">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/50 text-red-600 flex items-center justify-center font-bold">
               <Zap className="w-6 h-6" />
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-lg">AI Queue Load Balancer</h3>

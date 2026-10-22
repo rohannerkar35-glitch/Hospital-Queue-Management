@@ -39,7 +39,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-[#0066CC] dark:bg-blue-950 dark:text-blue-300 font-bold text-xs uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-300 font-bold text-xs uppercase tracking-wider border border-red-200">
               <MapPin className="w-3.5 h-3.5" />
               Verified Pune Doctors & Hospitals Directory
             </div>
@@ -53,7 +53,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
 
           <button
             onClick={() => setActiveTab('booking')}
-            className="px-5 py-2.5 rounded-xl bg-[#0066CC] text-white font-bold text-xs hover:bg-[#0052A3] transition-all shadow-md cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs hover:bg-red-700 transition-all shadow-md shadow-red-600/20 cursor-pointer"
           >
             + Book Pune OPD Slot
           </button>
@@ -111,7 +111,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
               onClick={() => setSelectedArea('All Pune Areas')}
               className={`px-3.5 py-1.5 rounded-xl whitespace-nowrap transition-all cursor-pointer ${
                 selectedArea === 'All Pune Areas'
-                  ? 'bg-[#0066CC] text-white shadow-xs'
+                  ? 'bg-red-600 text-white shadow-xs'
                   : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
               }`}
             >
@@ -123,7 +123,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
                 onClick={() => setSelectedArea(a)}
                 className={`px-3.5 py-1.5 rounded-xl whitespace-nowrap transition-all cursor-pointer ${
                   selectedArea === a
-                    ? 'bg-[#0066CC] text-white shadow-xs'
+                    ? 'bg-red-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
                 }`}
               >
@@ -155,18 +155,18 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
                   
                   {/* Top Badge & Status */}
                   <div className="flex justify-between items-start mb-4">
-                    <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-[#0066CC] dark:bg-blue-950 dark:text-blue-300 text-[10px] font-bold uppercase tracking-wider">
+                    <span className="px-2.5 py-1 rounded-lg bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-300 text-[10px] font-bold uppercase tracking-wider border border-red-100">
                       {doc.department.split('&')[0]}
                     </span>
 
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase flex items-center gap-1 ${
                       isAvailable ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
-                      inConsult ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' :
+                      inConsult ? 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300' :
                       'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
                     }`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${
                         isAvailable ? 'bg-emerald-500 animate-pulse' :
-                        inConsult ? 'bg-blue-500 animate-pulse' : 'bg-amber-500'
+                        inConsult ? 'bg-red-500 animate-pulse' : 'bg-amber-500'
                       }`} />
                       {doc.status}
                     </span>
@@ -196,9 +196,9 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
 
                   {/* Hospital & Location Details */}
                   <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 space-y-2 text-xs">
-                    <div className="p-3 rounded-xl bg-blue-50/60 dark:bg-slate-700/50 space-y-1">
+                    <div className="p-3 rounded-xl bg-red-50/50 dark:bg-slate-700/50 border border-red-100/60 dark:border-slate-700 space-y-1">
                       <p className="text-[11px] font-bold text-slate-900 dark:text-white flex items-center gap-1">
-                        <Building2 className="w-3.5 h-3.5 text-[#0066CC]" /> {doc.hospital}
+                        <Building2 className="w-3.5 h-3.5 text-red-600" /> {doc.hospital}
                       </p>
                       <p className="text-[10px] text-slate-500 flex items-center gap-1">
                         <MapPin className="w-3 h-3 text-red-500 shrink-0" /> {doc.address}
@@ -224,11 +224,11 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center">
                   <div>
                     <span className="text-[10px] text-slate-400">Consultation Fee</span>
-                    <p className="font-extrabold text-[#0066CC] text-sm">₹{doc.fee}</p>
+                    <p className="font-extrabold text-red-600 text-sm">₹{doc.fee}</p>
                   </div>
                   <button
                     onClick={() => setActiveTab('booking')}
-                    className="py-2.5 px-4 rounded-xl bg-[#0066CC] hover:bg-[#0052A3] text-white font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md shadow-red-600/20 transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Calendar className="w-4 h-4" /> Book Token Pass
                   </button>

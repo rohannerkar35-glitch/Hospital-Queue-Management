@@ -1,14 +1,29 @@
-import React from 'react';
-import { X, PhoneCall, ShieldAlert, HeartPulse, MapPin } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { X, PhoneCall, HeartPulse, ArrowLeft } from 'lucide-react';
 
 export default function EmergencyModal({ onClose }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md animate-in fade-in">
-      <div className="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-red-200 dark:border-red-900 relative space-y-6">
+    <div 
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md animate-in fade-in"
+    >
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-red-200 dark:border-red-900 relative space-y-6 max-h-[90vh] overflow-y-auto"
+      >
         
         <button
           onClick={onClose}
           className="absolute right-5 top-5 p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+          title="Close (Esc)"
         >
           <X className="w-5 h-5" />
         </button>
@@ -37,6 +52,13 @@ export default function EmergencyModal({ onClose }) {
             <p className="text-slate-500">Ext: #9904 (Central Trauma Block)</p>
           </div>
         </div>
+
+        <button
+          onClick={onClose}
+          className="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" /> Close & Return
+        </button>
 
       </div>
     </div>

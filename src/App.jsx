@@ -12,7 +12,7 @@ import ReceptionDashboard from './components/ReceptionDashboard';
 import DoctorDashboard from './components/DoctorDashboard';
 import AISmartFeatures from './components/AISmartFeatures';
 import EmergencyModal from './components/EmergencyModal';
-
+import LoginModal from './components/LoginModal';
 
 import { INITIAL_DOCTORS, INITIAL_TOKENS, INITIAL_NOTIFICATIONS } from './data/hospitalData';
 
@@ -20,6 +20,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [userRole, setUserRole] = useState('patient');
   const [darkMode, setDarkMode] = useState(false);
+
+  // Authentication session state
+  const [authSession, setAuthSession] = useState(() => {
+    try {
+      const saved = localStorage.getItem('smartopd_auth');
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  });
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [loginTargetRole, setLoginTargetRole] = useState('patient');
 
   // Core interactive state
   const [doctors, setDoctors] = useState(INITIAL_DOCTORS);
@@ -39,6 +51,71 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  // Auth gate navigation handler
+  const handleNavigateTab = (targetTab) => {
+    if (targetTab === 'patient-portal' && (!authSession || authSession.role !== 'patient')) {
+      setLoginTargetRole('patient');
+      setLoginModalOpen(true);
+      return;
+    }
+    if (targetTab === 'doctor-dashboard' && (!authSession || authSession.role !== 'doctor')) {
+      setLoginTargetRole('doctor');
+      setLoginModalOpen(true);
+      return;
+    }
+    if (targetTab === 'reception-dashboard' && (!authSession || authSession.role !== 'reception')) {
+      setLoginTargetRole('reception');
+      setLoginModalOpen(true);
+      return;
+    }
+    if (targetTab === 'admin-dashboard' && (!authSession || authSession.role !== 'admin')) {
+      setLoginTargetRole('admin');
+      setLoginModalOpen(true);
+      return;
+    }
+    setActiveTab(targetTab);
+  };
+
+  const handleLoginSuccess = (account) => {
+    setAuthSession(account);
+    setUserRole(account.role);
+    setActiveTab(account.targetTab);
+    try {
+      localStorage.setItem('smartopd_auth', JSON.stringify(account));
+    } catch (e) {}
+
+    const welcomeNotif = {
+      id: `notif-${Date.now()}`,
+      title: `Logged in as ${account.name}`,
+      message: `Access granted to ${account.portalName}. Welcome back!`,
+      channel: 'System Security',
+      time: 'Just now',
+      read: false,
+      type: 'confirmation'
+    };
+    setNotifications(prev => [welcomeNotif, ...prev]);
+  };
+
+  const handleLogout = () => {
+    setAuthSession(null);
+    setUserRole('patient');
+    setActiveTab('home');
+    try {
+      localStorage.removeItem('smartopd_auth');
+    } catch (e) {}
+
+    const logoutNotif = {
+      id: `notif-${Date.now()}`,
+      title: 'Signed Out Successfully',
+      message: 'You have been logged out of the portal.',
+      channel: 'System Security',
+      time: 'Just now',
+      read: false,
+      type: 'reminder'
+    };
+    setNotifications(prev => [logoutNotif, ...prev]);
+  };
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -181,7 +258,7 @@ export default function App() {
     playCallChime();
   };
 
-  const activeUserToken = tokens.find(t => t.patientName.includes('Alex Morgan') || t.tokenNumber === 'CARD-104');
+  const activeUserToken = tokens.find(t => t.patientName.includes('Om Kulkarni') || t.patientName.includes('Alex Morgan') || t.tokenNumber === 'CARD-104');
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors">
@@ -189,7 +266,7 @@ export default function App() {
       {/* Navigation Header */}
       <Header
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={handleNavigateTab}
         userRole={userRole}
         setUserRole={setUserRole}
         darkMode={darkMode}
@@ -198,13 +275,19 @@ export default function App() {
         unreadCount={unreadCount}
         onOpenNotifications={() => setNotificationsOpen(true)}
         onOpenEmergencyModal={() => setEmergencyModalOpen(true)}
+        authSession={authSession}
+        onOpenLoginModal={(role) => {
+          setLoginTargetRole(role || 'patient');
+          setLoginModalOpen(true);
+        }}
+        onLogout={handleLogout}
       />
 
       {/* Main Content Area */}
       <main>
         {activeTab === 'home' && (
           <LandingPage
-            setActiveTab={setActiveTab}
+            setActiveTab={handleNavigateTab}
             activeToken={activeUserToken}
             doctors={doctors}
           />
@@ -214,10 +297,11 @@ export default function App() {
           <PatientPortal
             tokens={tokens}
             onCancelToken={handleCancelToken}
-            onRescheduleToken={(id) => setActiveTab('booking')}
-            setActiveTab={setActiveTab}
+            onRescheduleToken={(id) => handleNavigateTab('booking')}
+            setActiveTab={handleNavigateTab}
             onOpenQRModal={(token) => setSelectedTokenForModal(token)}
             notifications={notifications}
+            authSession={authSession}
           />
         )}
 
@@ -225,14 +309,14 @@ export default function App() {
           <BookingModule
             doctors={doctors}
             onBookSuccess={handleBookSuccess}
-            setActiveTab={setActiveTab}
+            setActiveTab={handleNavigateTab}
           />
         )}
 
         {activeTab === 'doctors' && (
           <DoctorChecker
             doctors={doctors}
-            setActiveTab={setActiveTab}
+            setActiveTab={handleNavigateTab}
           />
         )}
 
@@ -248,7 +332,7 @@ export default function App() {
 
         {activeTab === 'ai-features' && (
           <AISmartFeatures
-            setActiveTab={setActiveTab}
+            setActiveTab={handleNavigateTab}
           />
         )}
 
@@ -256,6 +340,7 @@ export default function App() {
           <AdminDashboard
             tokens={tokens}
             doctors={doctors}
+            authSession={authSession}
           />
         )}
 
@@ -265,6 +350,7 @@ export default function App() {
             tokens={tokens}
             onIssueWalkInToken={handleIssueWalkInToken}
             onOpenQRModal={(token) => setSelectedTokenForModal(token)}
+            authSession={authSession}
           />
         )}
 
@@ -275,11 +361,20 @@ export default function App() {
             onCallNextToken={handleCallNextToken}
             onCompleteToken={handleCompleteToken}
             onSkipToken={handleSkipToken}
+            authSession={authSession}
           />
         )}
       </main>
 
       {/* MODALS */}
+
+      {/* Authentication Login Modal Gate */}
+      <LoginModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        targetRole={loginTargetRole}
+        onLoginSuccess={handleLoginSuccess}
+      />
 
       {/* Digital QR Token Pass Modal */}
       {selectedTokenForModal && (
@@ -296,8 +391,6 @@ export default function App() {
           onClose={() => setEmergencyModalOpen(false)}
         />
       )}
-
-
 
       {/* Notification Center Drawer */}
       {notificationsOpen && (

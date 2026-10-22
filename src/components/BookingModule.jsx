@@ -95,7 +95,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
         
         {/* Step Indicator Header */}
         <div className="text-center space-y-2">
-          <span className="px-3.5 py-1 rounded-full bg-blue-100 text-[#0066CC] dark:bg-blue-950 dark:text-blue-300 font-bold text-xs uppercase tracking-wider">
+          <span className="px-3.5 py-1 rounded-full bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-300 font-bold text-xs uppercase tracking-wider border border-red-200">
             Pune Hospital OPD Appointment Booking
           </span>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
@@ -110,19 +110,19 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
         <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
           <div className="grid grid-cols-4 text-center text-xs font-bold">
             
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 1 ? 'bg-[#0066CC] text-white shadow-sm' : step > 1 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 1 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : step > 1 ? 'text-red-700 dark:text-red-400' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">1. </span>Department
             </div>
 
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 2 ? 'bg-[#0066CC] text-white shadow-sm' : step > 2 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 2 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : step > 2 ? 'text-red-700 dark:text-red-400' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">2. </span>Pune Doctor
             </div>
 
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 3 ? 'bg-[#0066CC] text-white shadow-sm' : step > 3 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 3 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : step > 3 ? 'text-red-700 dark:text-red-400' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">3. </span>Date & Slot
             </div>
 
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 4 ? 'bg-[#0066CC] text-white shadow-sm' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 4 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">4. </span>Confirm Pass
             </div>
 
@@ -144,12 +144,12 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                   }}
                   className={`bg-white dark:bg-slate-800 p-6 rounded-3xl border transition-all cursor-pointer hover:shadow-xl hover:-translate-y-1 ${
                     selectedDept?.id === dept.id
-                      ? 'border-[#0066CC] ring-2 ring-blue-500/20 shadow-lg'
+                      ? 'border-red-600 ring-2 ring-red-500/20 shadow-lg'
                       : 'border-slate-200/80 dark:border-slate-700'
                   }`}
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <span className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-900/50 text-[#0066CC] dark:text-blue-300 font-bold flex items-center justify-center text-xs">
+                    <span className="w-10 h-10 rounded-2xl bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-300 font-bold flex items-center justify-center text-xs border border-red-100">
                       {dept.code}
                     </span>
                     <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-extrabold text-[10px] uppercase">
@@ -162,7 +162,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                   
                   <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs text-slate-600 dark:text-slate-300">
                     <span>Head: {dept.headDoctor}</span>
-                    <ChevronRight className="w-4 h-4 text-[#0066CC]" />
+                    <ChevronRight className="w-4 h-4 text-red-600" />
                   </div>
                 </div>
               ))}
@@ -205,7 +205,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                   }}
                   className={`bg-white dark:bg-slate-800 p-6 rounded-3xl border transition-all cursor-pointer hover:shadow-xl ${
                     selectedDoctor?.id === doc.id
-                      ? 'border-[#0066CC] ring-2 ring-blue-500/20 shadow-lg'
+                      ? 'border-red-600 ring-2 ring-red-500/20 shadow-lg'
                       : 'border-slate-200/80 dark:border-slate-700'
                   }`}
                 >
@@ -213,7 +213,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                     <img
                       src={doc.photo}
                       alt={doc.name}
-                      className="w-16 h-16 rounded-2xl object-cover border-2 border-blue-500/20"
+                      className="w-16 h-16 rounded-2xl object-cover border-2 border-red-500/20"
                     />
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
@@ -224,7 +224,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                       </div>
                       <p className="text-xs text-slate-500">{doc.qualification}</p>
                       <p className="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1 flex items-center gap-1">
-                        <Building2 className="w-3.5 h-3.5 text-[#0066CC]" /> {doc.hospital}
+                        <Building2 className="w-3.5 h-3.5 text-red-600" /> {doc.hospital}
                       </p>
                       <p className="text-[11px] text-slate-500 flex items-center gap-1">
                         <MapPin className="w-3 h-3 text-red-500 shrink-0" /> {doc.area} ({doc.address})
@@ -235,7 +235,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                   <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 grid grid-cols-2 gap-2 text-xs">
                     <div>
                       <p className="text-slate-400">Consultation Fee</p>
-                      <p className="font-extrabold text-[#0066CC] text-sm">₹{doc.fee}</p>
+                      <p className="font-extrabold text-red-600 text-sm">₹{doc.fee}</p>
                     </div>
                     <div>
                       <p className="text-slate-400">Next Slot</p>
@@ -286,8 +286,8 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                       onClick={() => setSelectedSlot(slot)}
                       className={`p-3 rounded-2xl border text-xs font-bold transition-all cursor-pointer ${
                         selectedSlot === slot
-                          ? 'bg-[#0066CC] text-white border-[#0066CC] shadow-md'
-                          : 'bg-slate-50 dark:bg-slate-700/50 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-blue-50'
+                          ? 'bg-red-600 text-white border-red-600 shadow-md shadow-red-600/20'
+                          : 'bg-slate-50 dark:bg-slate-700/50 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-red-50'
                       }`}
                     >
                       {slot}
@@ -300,7 +300,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                 <button
                   disabled={!selectedSlot}
                   onClick={() => setStep(4)}
-                  className="px-8 py-3.5 rounded-2xl bg-[#0066CC] text-white font-bold text-sm shadow-md disabled:opacity-50 hover:bg-[#0052A3] transition-all cursor-pointer"
+                  className="px-8 py-3.5 rounded-2xl bg-red-600 text-white font-bold text-sm shadow-md shadow-red-600/20 disabled:opacity-50 hover:bg-red-700 transition-all cursor-pointer"
                 >
                   Proceed to Patient Verification →
                 </button>
@@ -382,8 +382,8 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
               </div>
 
               {/* Summary Box */}
-              <div className="bg-blue-50/80 dark:bg-slate-700/60 p-5 rounded-2xl border border-blue-100 dark:border-slate-600 space-y-2 text-xs">
-                <p className="font-bold text-[#0066CC] dark:text-blue-300 text-sm">Pune OPD Booking Summary</p>
+              <div className="bg-red-50/70 dark:bg-slate-700/60 p-5 rounded-2xl border border-red-100 dark:border-slate-600 space-y-2 text-xs">
+                <p className="font-bold text-red-600 dark:text-red-300 text-sm">Pune OPD Booking Summary</p>
                 <div className="grid sm:grid-cols-2 gap-2 text-slate-700 dark:text-slate-300">
                   <p><strong>Department:</strong> {selectedDept?.name}</p>
                   <p><strong>Doctor:</strong> {selectedDoctor?.name}</p>
@@ -397,7 +397,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
               <div className="pt-2 flex justify-end">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-[#0066CC] to-[#00B894] text-white font-black text-base shadow-xl hover:scale-[1.02] transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white font-black text-base shadow-xl shadow-red-600/30 hover:scale-[1.02] transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-5 h-5" /> Generate Pune OPD Digital Token Pass
                 </button>

@@ -18,19 +18,23 @@ export default function ReceptionDashboard({
   doctors, 
   tokens, 
   onIssueWalkInToken, 
-  onOpenQRModal 
+  onOpenQRModal,
+  authSession
 }) {
   const [activeSubTab, setActiveSubTab] = useState('walk-in'); // walk-in, verify, desk-queue
   
   // Walk-in form state
   const [patientName, setPatientName] = useState('');
   const [patientAge, setPatientAge] = useState('30');
-  const [patientPhone, setPatientPhone] = useState('+1 (555) ');
+  const [patientPhone, setPatientPhone] = useState('+91 98');
   const [selectedDeptCode, setSelectedDeptCode] = useState('GEN');
   const [symptoms, setSymptoms] = useState('General checkup / walk-in');
 
   const [searchTokenInput, setSearchTokenInput] = useState('');
   const [scannedResult, setScannedResult] = useState(null);
+
+  const operatorName = authSession?.name || 'Akash Verma';
+  const operatorId = authSession?.operatorId || 'REC-AKASH-04';
 
   const handleIssueToken = (e) => {
     e.preventDefault();
@@ -57,7 +61,7 @@ export default function ReceptionDashboard({
       queuePosition: Math.floor(Math.random() * 3) + 1,
       estWaitMins: 10,
       date: '2026-10-05',
-      bookedVia: 'Reception Desk Kiosk',
+      bookedVia: `Reception Desk (#2 - ${operatorName})`,
       symptoms: symptoms
     };
 
@@ -79,9 +83,14 @@ export default function ReceptionDashboard({
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300 font-extrabold text-xs uppercase tracking-wider">
-              OPD RECEPTION DESK #2
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 font-extrabold text-xs uppercase tracking-wider">
+                OPD RECEPTION DESK #2
+              </span>
+              <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs">
+                Operator: <strong className="text-red-600">{operatorName}</strong> ({operatorId})
+              </span>
+            </div>
             <h1 className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               Reception & Walk-in Token Counter
             </h1>
@@ -248,7 +257,7 @@ export default function ReceptionDashboard({
                   <span className="text-xs font-extrabold text-emerald-800 dark:text-emerald-300">✅ VALID OPD PASS VERIFIED</span>
                   <button 
                     onClick={() => onOpenQRModal(scannedResult)}
-                    className="text-xs font-bold text-[#0066CC] hover:underline"
+                    className="text-xs font-bold text-red-600 hover:underline"
                   >
                     View QR Pass Modal
                   </button>
@@ -285,7 +294,7 @@ export default function ReceptionDashboard({
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                   {tokens.map((t) => (
                     <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/40">
-                      <td className="py-3 px-4 font-mono font-black text-[#0066CC]">{t.tokenNumber}</td>
+                      <td className="py-3 px-4 font-mono font-black text-red-600">{t.tokenNumber}</td>
                       <td className="py-3 px-4 font-bold text-slate-900 dark:text-white">{t.patientName}</td>
                       <td className="py-3 px-4 text-slate-500">{t.department}</td>
                       <td className="py-3 px-4 text-slate-700 dark:text-slate-300 font-semibold">{t.doctorName}</td>
@@ -294,7 +303,7 @@ export default function ReceptionDashboard({
                       <td className="py-3 px-4">
                         <button 
                           onClick={() => onOpenQRModal(t)}
-                          className="px-2.5 py-1 rounded bg-blue-50 text-[#0066CC] font-bold text-[11px]"
+                          className="px-2.5 py-1 rounded bg-red-50 text-red-600 font-bold text-[11px] hover:bg-red-100 cursor-pointer"
                         >
                           Print Pass
                         </button>

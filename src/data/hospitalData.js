@@ -29,7 +29,7 @@ export const DEPARTMENTS = [
     name: 'Cardiology & Heart Care',
     code: 'CARD',
     icon: 'HeartPulse',
-    headDoctor: 'Dr. Advani D G',
+    headDoctor: 'Dr. Rohan Nerkar',
     activeDoctors: 3,
     avgWaitTime: 15,
     todayPatients: 74,
@@ -247,7 +247,7 @@ export const INITIAL_DOCTORS = [
   },
   {
     id: 'pune-doc-8',
-    name: 'Dr. Advani D G',
+    name: 'Dr. Rohan Nerkar',
     deptId: 'cardio',
     department: 'Cardiology & Heart Care',
     qualification: 'MD (Cardiology), Chief Cardiologist',
@@ -361,7 +361,7 @@ export const INITIAL_TOKENS = [
     patientGender: 'Male',
     patientPhone: '+91 98220 12345',
     doctorId: 'pune-doc-8',
-    doctorName: 'Dr. Advani D G',
+    doctorName: 'Dr. Rohan Nerkar',
     department: 'Cardiology & Heart Care',
     roomNo: 'Cardiac Wing Room 104 (Inlaks Hospital)',
     slotTime: '10:00 AM',
@@ -381,7 +381,7 @@ export const INITIAL_TOKENS = [
     patientGender: 'Female',
     patientPhone: '+91 98901 67890',
     doctorId: 'pune-doc-8',
-    doctorName: 'Dr. Advani D G',
+    doctorName: 'Dr. Rohan Nerkar',
     department: 'Cardiology & Heart Care',
     roomNo: 'Cardiac Wing Room 104 (Inlaks Hospital)',
     slotTime: '10:15 AM',
@@ -401,7 +401,7 @@ export const INITIAL_TOKENS = [
     patientGender: 'Male',
     patientPhone: '+91 94225 43210',
     doctorId: 'pune-doc-8',
-    doctorName: 'Dr. Advani D G',
+    doctorName: 'Dr. Rohan Nerkar',
     department: 'Cardiology & Heart Care',
     roomNo: 'Cardiac Wing Room 104 (Inlaks Hospital)',
     slotTime: '10:30 AM',
@@ -416,12 +416,12 @@ export const INITIAL_TOKENS = [
   {
     id: 'token-104',
     tokenNumber: 'CARD-104',
-    patientName: 'Alex Morgan (Demo User)',
-    patientAge: 29,
-    patientGender: 'Female',
-    patientPhone: '+91 91580 99999',
+    patientName: 'Om Kulkarni',
+    patientAge: 28,
+    patientGender: 'Male',
+    patientPhone: '+91 98220 54321',
     doctorId: 'pune-doc-8',
-    doctorName: 'Dr. Advani D G',
+    doctorName: 'Dr. Rohan Nerkar',
     department: 'Cardiology & Heart Care',
     roomNo: 'Cardiac Wing Room 104 (Inlaks Hospital)',
     slotTime: '10:45 AM',
@@ -431,7 +431,7 @@ export const INITIAL_TOKENS = [
     date: '2026-10-05',
     bookedVia: 'Patient Portal',
     symptoms: 'Routine cardiology fitness certificate',
-    vitals: { bp: '118/76', pulse: '70 bpm', temp: '98.6°F', weight: '58 kg' }
+    vitals: { bp: '118/76', pulse: '70 bpm', temp: '98.6°F', weight: '65 kg' }
   },
   {
     id: 'token-201',
@@ -479,8 +479,8 @@ export const INITIAL_NOTIFICATIONS = [
   {
     id: 'notif-1',
     title: 'Pune OPD Appointment Confirmed',
-    message: 'Your Cardiology appointment with Dr. Advani D G at Inlaks & Budhrani Hospital (Camp) is scheduled for 10:45 AM.',
-    channel: 'SMS & WhatsApp (+91 91580 99999)',
+    message: 'Your Cardiology appointment with Dr. Rohan Nerkar at Inlaks & Budhrani Hospital (Camp) is scheduled for 10:45 AM.',
+    channel: 'SMS & WhatsApp (+91 98220 54321)',
     time: '12 mins ago',
     read: false,
     type: 'confirmation'
@@ -488,7 +488,7 @@ export const INITIAL_NOTIFICATIONS = [
   {
     id: 'notif-2',
     title: 'Live Queue Moving (Inlaks Hospital)',
-    message: 'Token CARD-101 is now inside Room 104 with Dr. Advani D G. You are position #3 in line.',
+    message: 'Token CARD-101 is now inside Room 104 with Dr. Rohan Nerkar. You are position #3 in line.',
     channel: 'Push Notification',
     time: '4 mins ago',
     read: false,
@@ -526,7 +526,7 @@ export const ADMIN_ANALYTICS = {
     { month: 'Oct', count: 6800 }
   ],
   departmentLoad: [
-    { name: 'General Medicine', patients: 142, fill: '#0066CC' },
+    { name: 'General Medicine', patients: 142, fill: '#DC2626' },
     { name: 'Gynecology', patients: 115, fill: '#EC4899' },
     { name: 'Pediatrics', patients: 110, fill: '#00B894' },
     { name: 'Pathology Lab', patients: 95, fill: '#14B8A6' },
