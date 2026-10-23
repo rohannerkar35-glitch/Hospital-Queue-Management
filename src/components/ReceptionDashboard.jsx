@@ -84,7 +84,7 @@ export default function ReceptionDashboard({
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 font-extrabold text-xs uppercase tracking-wider">
+              <span className="px-3 py-1 rounded-full bg-red-50 text-red-600 border border-red-200/60 dark:bg-slate-700 dark:text-red-400 font-extrabold text-xs uppercase tracking-wider">
                 OPD RECEPTION DESK #2
               </span>
               <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs">

@@ -50,7 +50,7 @@ export default function PatientPortal({
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header Profile Banner */}
-        <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-red-900/10 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-red-500 via-rose-500 to-red-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-red-500/15 relative overflow-hidden">
           <div className="absolute right-0 bottom-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
           
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
@@ -65,7 +65,7 @@ export default function PatientPortal({
                     Verified Patient
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-red-100 mt-1">
+                <p className="text-xs sm:text-sm text-rose-100 mt-1">
                   ID: <span className="font-mono font-bold">PAT-884920</span> • {userProfile.gender}, {userProfile.age} yrs • Blood: <span className="font-bold">{userProfile.bloodGroup}</span>
                 </p>
               </div>
@@ -74,7 +74,7 @@ export default function PatientPortal({
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setActiveTab('booking')}
-                className="px-5 py-2.5 rounded-xl bg-white text-red-600 hover:bg-red-50 font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-white text-red-600 hover:bg-red-50 font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer hover:scale-105"
               >
                 <Calendar className="w-4 h-4" /> Book New Appointment
               </button>
@@ -86,7 +86,7 @@ export default function PatientPortal({
             <button
               onClick={() => setPortalTab('overview')}
               className={`px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'overview' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
+                portalTab === 'overview' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
               }`}
             >
               Dashboard Overview
@@ -94,7 +94,7 @@ export default function PatientPortal({
             <button
               onClick={() => setPortalTab('appointments')}
               className={`px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'appointments' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
+                portalTab === 'appointments' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
               }`}
             >
               My Tokens & History ({tokens.length})
@@ -102,7 +102,7 @@ export default function PatientPortal({
             <button
               onClick={() => setPortalTab('prescriptions')}
               className={`px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'prescriptions' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
+                portalTab === 'prescriptions' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
               }`}
             >
               Prescriptions & Reports ({MEDICAL_REPORTS.length})
@@ -110,7 +110,7 @@ export default function PatientPortal({
             <button
               onClick={() => setPortalTab('profile')}
               className={`px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'profile' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
+                portalTab === 'profile' ? 'bg-white text-red-600 shadow-xs' : 'text-white/80 hover:bg-white/10'
               }`}
             >
               Medical Profile

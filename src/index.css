@@ -1,21 +1,46 @@
 @import "tailwindcss";
 
+@theme {
+  --color-red-50: #fff5f6;
+  --color-red-100: #ffe4e8;
+  --color-red-200: #fecdd6;
+  --color-red-300: #fda4b4;
+  --color-red-400: #fb718b;
+  --color-red-500: #f43f5e;
+  --color-red-600: #e11d48;
+  --color-red-700: #be123c;
+  --color-red-800: #9f1239;
+  --color-red-900: #881337;
+  --color-red-950: #4c0519;
+
+  --color-rose-50: #fff5f7;
+  --color-rose-100: #ffe4e9;
+  --color-rose-200: #fecdd6;
+  --color-rose-300: #fda4b4;
+  --color-rose-400: #fb718b;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+  --color-rose-700: #be123c;
+}
+
 @layer base {
   :root {
-    --primary: #DC2626;
-    --primary-hover: #B91C1C;
-    --secondary: #EF4444;
-    --secondary-hover: #991B1B;
-    --bg-main: #FFFFFF;
-    --accent: #FEF2F2;
-    --text-dark: #1E1E1E;
+    --primary: #e11d48;
+    --primary-hover: #be123c;
+    --secondary: #f43f5e;
+    --secondary-hover: #9f1239;
+    --bg-main: #fafbfc;
+    --accent: #fff5f6;
+    --text-dark: #0f172a;
   }
 
   body {
     color: var(--text-dark);
     background-color: var(--bg-main);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -28,26 +53,26 @@
   background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #fca5a5;
+  background: #fecdd6;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f87171;
+  background: #fb718b;
 }
 
 /* Pulse beacon animation */
 @keyframes pulse-ring {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
   }
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+    box-shadow: 0 0 0 10px rgba(244, 63, 94, 0);
   }
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
   }
 }
 
@@ -70,3 +95,4 @@
     width: 100%;
   }
 }
+

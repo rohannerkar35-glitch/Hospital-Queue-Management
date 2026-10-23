@@ -17,7 +17,7 @@ export default function EmergencyModal({ onClose }) {
     >
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-red-200 dark:border-red-900 relative space-y-6 max-h-[90vh] overflow-y-auto"
+        className="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200/80 dark:border-slate-700 relative space-y-6 max-h-[90vh] overflow-y-auto"
       >
         
         <button
@@ -29,7 +29,7 @@ export default function EmergencyModal({ onClose }) {
         </button>
 
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-red-100 dark:bg-red-950 text-red-600 mx-auto flex items-center justify-center animate-bounce">
+          <div className="w-14 h-14 rounded-2xl bg-red-50 text-red-600 border border-red-200/60 dark:bg-slate-700 dark:text-red-400 mx-auto flex items-center justify-center animate-bounce shadow-xs">
             <PhoneCall className="w-7 h-7" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">Emergency OPD Assistance</h2>
@@ -39,7 +39,7 @@ export default function EmergencyModal({ onClose }) {
         <div className="space-y-3 text-xs">
           <a
             href="tel:911"
-            className="p-4 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-extrabold flex items-center justify-between transition-all cursor-pointer shadow-md"
+            className="p-4 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-extrabold flex items-center justify-between transition-all cursor-pointer shadow-lg shadow-red-500/20"
           >
             <span className="flex items-center gap-2"><PhoneCall className="w-4 h-4" /> Hospital Emergency Ambulance Dispatch</span>
             <span className="font-mono text-sm">CALL 911 / 102</span>

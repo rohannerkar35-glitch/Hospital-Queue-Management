@@ -64,7 +64,7 @@ export default function QueueTracker({
                 onClick={() => setSelectedDeptFilter(dept.name)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                   selectedDeptFilter === dept.name
-                    ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                    ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-md shadow-red-500/20'
                     : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-red-200'
                 }`}
               >
@@ -241,7 +241,7 @@ export default function QueueTracker({
                   <tr 
                     key={t.id}
                     className={`hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors ${
-                      t.patientName.includes('Om Kulkarni') || t.patientName.includes('Alex Morgan') ? 'bg-red-50/60 dark:bg-red-950/40 font-bold' : ''
+                      t.patientName.includes('Om Kulkarni') || t.patientName.includes('Alex Morgan') ? 'bg-red-50/60 dark:bg-slate-700/60 font-bold' : ''
                     }`}
                   >
                     <td className="py-3.5 px-4 font-mono font-bold text-slate-500">#{idx + 1}</td>
@@ -254,7 +254,7 @@ export default function QueueTracker({
                     <td className="py-3.5 px-4">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
                         t.status === 'CALLING' ? 'bg-emerald-100 text-emerald-800 animate-pulse' :
-                        t.status === 'IN_CONSULTATION' ? 'bg-red-100 text-red-800' :
+                        t.status === 'IN_CONSULTATION' ? 'bg-red-50 text-red-600 border border-red-200/60' :
                         t.status === 'COMPLETED' ? 'bg-slate-200 text-slate-700' :
                         'bg-amber-100 text-amber-800'
                       }`}>

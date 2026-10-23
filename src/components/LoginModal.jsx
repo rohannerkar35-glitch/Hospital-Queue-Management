@@ -96,7 +96,7 @@ export default function LoginModal({
     >
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-red-200 dark:border-red-950/80 relative space-y-6 max-h-[92vh] overflow-y-auto"
+        className="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200/80 dark:border-slate-800 relative space-y-6 max-h-[92vh] overflow-y-auto"
       >
         {/* Close Button */}
         <button
@@ -109,11 +109,11 @@ export default function LoginModal({
 
         {/* Modal Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 dark:bg-red-950/60 dark:text-red-400 mx-auto flex items-center justify-center shadow-inner border border-red-200/60">
+          <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 dark:bg-slate-800 dark:text-red-400 mx-auto flex items-center justify-center shadow-inner border border-red-200/60">
             <Lock className="w-6 h-6" />
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300 font-extrabold text-[11px] uppercase tracking-wider">
-            <ShieldCheck className="w-3.5 h-3.5 text-red-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200/60 dark:bg-slate-800 dark:text-red-400 font-extrabold text-[11px] uppercase tracking-wider">
+            <ShieldCheck className="w-3.5 h-3.5 text-red-500" />
             Protected Hospital Console
           </div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">
@@ -131,7 +131,7 @@ export default function LoginModal({
             onClick={() => handleAutoFill('patient', false)}
             className={`py-2 px-2 rounded-xl transition-all flex flex-col items-center gap-1 cursor-pointer ${
               selectedRole === 'patient'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
+                ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20'
                 : 'text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700'
             }`}
           >
@@ -144,7 +144,7 @@ export default function LoginModal({
             onClick={() => handleAutoFill('doctor', false)}
             className={`py-2 px-2 rounded-xl transition-all flex flex-col items-center gap-1 cursor-pointer ${
               selectedRole === 'doctor'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
+                ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20'
                 : 'text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700'
             }`}
           >
@@ -157,7 +157,7 @@ export default function LoginModal({
             onClick={() => handleAutoFill('reception', false)}
             className={`py-2 px-2 rounded-xl transition-all flex flex-col items-center gap-1 cursor-pointer ${
               selectedRole === 'reception'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
+                ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20'
                 : 'text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700'
             }`}
           >
@@ -170,7 +170,7 @@ export default function LoginModal({
             onClick={() => handleAutoFill('admin', false)}
             className={`py-2 px-2 rounded-xl transition-all flex flex-col items-center gap-1 cursor-pointer ${
               selectedRole === 'admin'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
+                ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20'
                 : 'text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700'
             }`}
           >
@@ -180,12 +180,12 @@ export default function LoginModal({
         </div>
 
         {/* Selected Role Info Card */}
-        <div className="p-3.5 rounded-2xl bg-red-50/70 dark:bg-slate-800 border border-red-200/80 dark:border-red-950 flex items-center justify-between text-xs">
+        <div className="p-3.5 rounded-2xl bg-red-50/50 dark:bg-slate-800 border border-red-100 dark:border-slate-700 flex items-center justify-between text-xs">
           <div>
             <p className="font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
               <span>Logging in as:</span>
               <span className="text-red-600 dark:text-red-400 font-black">{currentAccountConfig.name}</span>
-              <span className="text-[10px] px-2 py-0.2 rounded-full bg-red-100 text-red-800 dark:bg-red-900/60 dark:text-red-200 font-bold">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200/60 dark:bg-slate-700 dark:text-red-300 font-bold">
                 {currentAccountConfig.badge}
               </span>
             </p>
@@ -195,7 +195,7 @@ export default function LoginModal({
 
         {/* Error Alert */}
         {errorMessage && (
-          <div className="p-3.5 rounded-2xl bg-red-100 border border-red-300 text-red-900 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+          <div className="p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold flex items-center gap-2 animate-in fade-in">
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
             <span>{errorMessage}</span>
           </div>
@@ -214,7 +214,7 @@ export default function LoginModal({
                 placeholder={`e.g. ${currentAccountConfig.username} or ${currentAccountConfig.email}`}
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                className="w-full px-4 py-3 pl-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition-all outline-hidden"
+                className="w-full px-4 py-3 pl-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all outline-hidden"
               />
               <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
             </div>
@@ -231,7 +231,7 @@ export default function LoginModal({
                 placeholder="Enter password..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 pl-10 pr-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition-all outline-hidden"
+                className="w-full px-4 py-3 pl-10 pr-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all outline-hidden"
               />
               <Key className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
               <button
@@ -248,7 +248,7 @@ export default function LoginModal({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-extrabold text-sm shadow-lg shadow-red-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 active:scale-[0.99] text-white font-extrabold text-sm shadow-lg shadow-red-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">

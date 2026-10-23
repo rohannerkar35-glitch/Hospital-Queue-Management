@@ -108,21 +108,21 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
 
         {/* Wizard Progress Bar */}
         <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
-          <div className="grid grid-cols-4 text-center text-xs font-bold">
+          <div className="grid grid-cols-4 text-center text-xs font-bold gap-1 sm:gap-2">
             
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 1 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : step > 1 ? 'text-red-700 dark:text-red-400' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 1 ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20' : step > 1 ? 'text-red-600 dark:text-red-400' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">1. </span>Department
             </div>
 
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 2 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : step > 2 ? 'text-red-700 dark:text-red-400' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 2 ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20' : step > 2 ? 'text-red-600 dark:text-red-400' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">2. </span>Pune Doctor
             </div>
 
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 3 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : step > 3 ? 'text-red-700 dark:text-red-400' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 3 ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20' : step > 3 ? 'text-red-600 dark:text-red-400' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">3. </span>Date & Slot
             </div>
 
-            <div className={`py-2 px-1 rounded-xl transition-all ${step === 4 ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : 'text-slate-400'}`}>
+            <div className={`py-2 px-1 rounded-xl transition-all ${step === 4 ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm shadow-red-500/20' : 'text-slate-400'}`}>
               <span className="hidden sm:inline">4. </span>Confirm Pass
             </div>
 
@@ -286,7 +286,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                       onClick={() => setSelectedSlot(slot)}
                       className={`p-3 rounded-2xl border text-xs font-bold transition-all cursor-pointer ${
                         selectedSlot === slot
-                          ? 'bg-red-600 text-white border-red-600 shadow-md shadow-red-600/20'
+                          ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white border-transparent shadow-md shadow-red-500/20'
                           : 'bg-slate-50 dark:bg-slate-700/50 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-red-50'
                       }`}
                     >
@@ -300,7 +300,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
                 <button
                   disabled={!selectedSlot}
                   onClick={() => setStep(4)}
-                  className="px-8 py-3.5 rounded-2xl bg-red-600 text-white font-bold text-sm shadow-md shadow-red-600/20 disabled:opacity-50 hover:bg-red-700 transition-all cursor-pointer"
+                  className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-bold text-sm shadow-md shadow-red-500/20 disabled:opacity-50 transition-all cursor-pointer"
                 >
                   Proceed to Patient Verification →
                 </button>
@@ -397,7 +397,7 @@ export default function BookingModule({ doctors, onBookSuccess, setActiveTab }) 
               <div className="pt-2 flex justify-end">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white font-black text-base shadow-xl shadow-red-600/30 hover:scale-[1.02] transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-500 via-rose-500 to-red-600 hover:from-red-600 hover:to-rose-700 text-white font-black text-base shadow-lg shadow-red-500/25 hover:scale-[1.02] transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-5 h-5" /> Generate Pune OPD Digital Token Pass
                 </button>

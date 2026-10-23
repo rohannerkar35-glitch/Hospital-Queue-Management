@@ -48,11 +48,11 @@ export default function Header({
   };
 
   const roleColors = {
-    patient: 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-900/40 dark:text-emerald-300',
-    doctor: 'bg-red-100 text-red-800 border-red-300 dark:bg-red-900/40 dark:text-red-300',
-    reception: 'bg-purple-100 text-purple-800 border-purple-300 dark:bg-purple-900/40 dark:text-purple-300',
-    admin: 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/40 dark:text-amber-300',
-    public: 'bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300'
+    patient: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300',
+    doctor: 'bg-red-50 text-red-600 border-red-200 dark:bg-slate-800 dark:text-red-400',
+    reception: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/40 dark:text-purple-300',
+    admin: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300',
+    public: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300'
   };
 
   const handleRoleSelect = (role, targetTab) => {
@@ -68,7 +68,7 @@ export default function Header({
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/95 dark:bg-slate-900/95 border-b border-red-100/80 dark:border-slate-800 transition-colors shadow-xs">
       {/* Top Banner Alert / Emergency bar */}
-      <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white text-xs py-1.5 px-4 flex items-center justify-between font-medium">
+      <div className="bg-gradient-to-r from-red-500 via-rose-500 to-red-500 text-white text-xs py-2 px-4 flex items-center justify-between font-medium shadow-xs">
         <div className="flex items-center gap-2 container mx-auto">
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -79,7 +79,7 @@ export default function Header({
         <div className="hidden md:flex items-center gap-4 text-xs">
           <button 
             onClick={onOpenEmergencyModal} 
-            className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-2.5 py-0.5 rounded-full font-bold transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+            className="bg-white/20 hover:bg-white/30 text-white border border-white/40 px-3 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer backdrop-blur-xs hover:scale-105"
           >
             <PhoneCall className="w-3 h-3 animate-pulse" /> Emergency OPD Helpline
           </button>
@@ -94,7 +94,7 @@ export default function Header({
             onClick={() => setActiveTab('home')}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-rose-600 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 via-rose-500 to-red-600 flex items-center justify-center text-white shadow-md shadow-red-500/25 group-hover:scale-105 transition-transform">
               <Activity className="w-6 h-6" />
             </div>
             <div>
@@ -102,7 +102,7 @@ export default function Header({
                 <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
                   Smart<span className="text-red-600">OPD</span>
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-red-50 text-red-600 dark:bg-red-950/60 dark:text-red-300 rounded-md border border-red-200/50">
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-red-50 text-red-600 dark:bg-slate-800 dark:text-red-400 rounded-md border border-red-200/60">
                   Hospital v2.4
                 </span>
               </div>

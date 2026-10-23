@@ -99,7 +99,7 @@ export default function AISmartFeatures({ setActiveTab }) {
           </div>
 
           {/* AI Output Card */}
-          <div className="lg:col-span-6 bg-gradient-to-br from-red-600 via-rose-600 to-red-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-red-900/10 flex flex-col justify-between space-y-6 relative overflow-hidden">
+          <div className="lg:col-span-6 bg-gradient-to-br from-red-500 via-rose-500 to-red-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-red-500/15 flex flex-col justify-between space-y-6 relative overflow-hidden">
             <div className="absolute right-0 bottom-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-4 relative z-10">
@@ -108,9 +108,9 @@ export default function AISmartFeatures({ setActiveTab }) {
               </span>
 
               <div>
-                <p className="text-xs text-red-100 font-semibold">Predicted Wait Time for {selectedDept.name}</p>
+                <p className="text-xs text-rose-100 font-semibold">Predicted Wait Time for {selectedDept.name}</p>
                 <p className="text-5xl font-black tracking-tight mt-1">{predictedWaitTime} Mins</p>
-                <p className="text-xs text-red-100 mt-1">Accuracy Score: 96.4% confidence interval</p>
+                <p className="text-xs text-rose-100 mt-1">Accuracy Score: 96.4% confidence interval</p>
               </div>
 
               <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-xs space-y-1">

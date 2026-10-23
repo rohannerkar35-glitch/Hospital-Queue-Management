@@ -39,7 +39,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-300 font-bold text-xs uppercase tracking-wider border border-red-200">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 dark:bg-slate-700 dark:text-red-400 font-bold text-xs uppercase tracking-wider border border-red-200/60">
               <MapPin className="w-3.5 h-3.5" />
               Verified Pune Doctors & Hospitals Directory
             </div>
@@ -53,7 +53,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
 
           <button
             onClick={() => setActiveTab('booking')}
-            className="px-5 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs hover:bg-red-700 transition-all shadow-md shadow-red-600/20 cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-bold text-xs transition-all shadow-md shadow-red-500/20 cursor-pointer"
           >
             + Book Pune OPD Slot
           </button>
@@ -111,7 +111,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
               onClick={() => setSelectedArea('All Pune Areas')}
               className={`px-3.5 py-1.5 rounded-xl whitespace-nowrap transition-all cursor-pointer ${
                 selectedArea === 'All Pune Areas'
-                  ? 'bg-red-600 text-white shadow-xs'
+                  ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-xs'
                   : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
               }`}
             >
@@ -123,7 +123,7 @@ export default function DoctorChecker({ doctors, setActiveTab }) {
                 onClick={() => setSelectedArea(a)}
                 className={`px-3.5 py-1.5 rounded-xl whitespace-nowrap transition-all cursor-pointer ${
                   selectedArea === a
-                    ? 'bg-red-600 text-white shadow-xs'
+                    ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
                 }`}
               >

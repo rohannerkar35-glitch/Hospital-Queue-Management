@@ -34,7 +34,7 @@ import { ADMIN_ANALYTICS, DEPARTMENTS } from '../data/hospitalData';
 export default function AdminDashboard({ tokens, doctors, authSession }) {
   const [adminTab, setAdminTab] = useState('analytics'); // analytics, doctors, queue, departments
 
-  const COLORS = ['#DC2626', '#EF4444', '#F87171', '#FB7185', '#E11D48', '#BE123C', '#991B1B'];
+  const COLORS = ['#F43F5E', '#E11D48', '#FB7185', '#FDA4AF', '#F43F5E', '#BE123C', '#E52E42'];
   const adminName = authSession?.name || 'Rohan Nerkar';
 
   return (

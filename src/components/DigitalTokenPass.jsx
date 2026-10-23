@@ -70,7 +70,7 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
             
             {/* Badge & Branding */}
             <div>
-              <span className="px-3 py-1 rounded-full bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-300 font-extrabold text-[10px] uppercase tracking-wider border border-red-200">
+              <span className="px-3 py-1 rounded-full bg-red-50 text-red-600 dark:bg-slate-700 dark:text-red-400 font-extrabold text-[10px] uppercase tracking-wider border border-red-200/60">
                 OFFICIAL DIGITAL OPD PASS
               </span>
               <h2 className="text-2xl font-black text-slate-900 dark:text-white mt-2">
@@ -80,25 +80,25 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
             </div>
 
             {/* Token Card Hero */}
-            <div className="bg-gradient-to-br from-red-600 via-rose-600 to-red-700 p-5 rounded-2xl text-white shadow-xl shadow-red-600/20 space-y-3">
+            <div className="bg-gradient-to-br from-red-500 via-rose-500 to-red-600 p-5 rounded-2xl text-white shadow-xl shadow-red-500/20 space-y-3 border border-white/20">
               <p className="text-xs uppercase tracking-widest text-rose-100 font-bold">YOUR DIGITAL TOKEN NO.</p>
               <p className="text-4xl sm:text-5xl font-black tracking-tight drop-shadow-md">
                 {token.tokenNumber}
               </p>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold border border-white/20">
                 <Clock className="w-3.5 h-3.5" />
                 <span>Est. Consultation in {token.estWaitMins} mins</span>
               </div>
             </div>
 
             {/* Live QR Code Display */}
-            <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-red-50/40 dark:bg-slate-700/50 border border-red-100 dark:border-slate-600">
+            <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white dark:bg-slate-700/50 border border-slate-200/80 dark:border-slate-600 shadow-sm">
               <QRCodeSVG
                 value={qrData}
                 size={140}
                 level="H"
                 includeMargin={true}
-                fgColor="#DC2626"
+                fgColor="#E11D48"
               />
               <p className="text-[11px] text-slate-400 font-mono font-bold mt-2">
                 HASH: {token.id.toUpperCase()}
@@ -158,7 +158,7 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
               onClick={() => {
                 alert('Pass downloaded to device!');
               }}
-              className="py-2.5 px-3 rounded-xl bg-red-600 text-white font-bold text-xs hover:bg-red-700 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-red-600/20"
+              className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-red-500/20"
             >
               <Download className="w-3.5 h-3.5" /> Save Pass
             </button>
@@ -166,7 +166,7 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
 
           <button
             onClick={onClose}
-            className="w-full py-2.5 rounded-xl bg-red-50 hover:bg-red-100 dark:bg-slate-700 dark:hover:bg-slate-600 text-red-700 dark:text-slate-200 font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Done & Return to Dashboard
           </button>

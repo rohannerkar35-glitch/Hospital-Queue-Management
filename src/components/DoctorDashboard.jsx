@@ -114,7 +114,7 @@ export default function DoctorDashboard({
             <div className="grid sm:grid-cols-3 gap-3">
               <button
                 onClick={() => onCallNextToken(activeDoctor.department)}
-                className="py-4 px-4 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-xs shadow-lg shadow-red-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="py-4 px-4 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-black text-xs shadow-lg shadow-red-500/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Volume2 className="w-5 h-5 text-amber-300 animate-pulse" /> CALL NEXT PATIENT
               </button>
