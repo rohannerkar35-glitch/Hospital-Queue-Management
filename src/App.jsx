@@ -13,8 +13,51 @@ import DoctorDashboard from './components/DoctorDashboard';
 import AISmartFeatures from './components/AISmartFeatures';
 import EmergencyModal from './components/EmergencyModal';
 import LoginModal from './components/LoginModal';
-
 import { INITIAL_DOCTORS, INITIAL_TOKENS, INITIAL_NOTIFICATIONS } from './data/hospitalData';
+
+// Global Error Boundary to catch any runtime errors gracefully
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Portal ErrorBoundary caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-6 text-center">
+          <div className="max-w-md bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 space-y-4">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl font-bold">
+              !
+            </div>
+            <h2 className="text-xl font-black text-slate-900 dark:text-white">Portal Display Error</h2>
+            <p className="text-xs text-slate-500">
+              {this.state.error?.message || 'An error occurred while loading this view.'}
+            </p>
+            <button
+              onClick={() => {
+                this.setState({ hasError: false, error: null });
+                window.location.reload();
+              }}
+              className="px-6 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs hover:bg-red-700 transition-all cursor-pointer shadow-md"
+            >
+              Reload Portal
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
@@ -54,10 +97,17 @@ export default function App() {
 
   // Auth gate navigation handler
   const handleNavigateTab = (targetTab) => {
-    if (targetTab === 'patient-portal' && (!authSession || authSession.role !== 'patient')) {
-      setLoginTargetRole('patient');
-      setLoginModalOpen(true);
-      return;
+    if (targetTab === 'patient-portal') {
+      if (!authSession || authSession.role !== 'patient') {
+        // If user already has created or active tokens, let them view their patient portal
+        if (tokens && tokens.length > 0) {
+          setActiveTab('patient-portal');
+          return;
+        }
+        setLoginTargetRole('patient');
+        setLoginModalOpen(true);
+        return;
+      }
     }
     if (targetTab === 'doctor-dashboard' && (!authSession || authSession.role !== 'doctor')) {
       setLoginTargetRole('doctor');
@@ -143,6 +193,34 @@ export default function App() {
   const handleBookSuccess = (newToken) => {
     setTokens(prev => [newToken, ...prev]);
     setSelectedTokenForModal(newToken);
+
+    // Auto-create or ensure patient session so Patient Portal is active and personalized
+    if (!authSession) {
+      const patientSession = {
+        role: 'patient',
+        portalName: 'Patient Portal',
+        name: newToken.patientName || 'Om Kulkarni',
+        displayName: newToken.patientName || 'Om Kulkarni',
+        username: (newToken.patientName || 'patient').toLowerCase().replace(/\s+/g, ''),
+        email: `${(newToken.patientName || 'patient').toLowerCase().replace(/\s+/g, '')}@hospital.in`,
+        targetTab: 'patient-portal',
+        badge: 'Verified Patient',
+        patientId: `PAT-${Math.floor(100000 + Math.random() * 900000)}`,
+        phone: newToken.patientPhone || '+91 98220 54321',
+        age: newToken.patientAge || 28,
+        gender: newToken.patientGender || 'Male',
+        bloodGroup: 'B+',
+        allergies: 'None recorded',
+        emergencyContact: 'Emergency Contact Available'
+      };
+      setAuthSession(patientSession);
+      setUserRole('patient');
+      try {
+        localStorage.setItem('smartopd_auth', JSON.stringify(patientSession));
+      } catch (e) {}
+    } else {
+      setUserRole('patient');
+    }
 
     // Push notification
     const newNotif = {
@@ -284,87 +362,89 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main>
-        {activeTab === 'home' && (
-          <LandingPage
-            setActiveTab={handleNavigateTab}
-            activeToken={activeUserToken}
-            doctors={doctors}
-          />
-        )}
+      <ErrorBoundary>
+        <main>
+          {activeTab === 'home' && (
+            <LandingPage
+              setActiveTab={handleNavigateTab}
+              activeToken={activeUserToken}
+              doctors={doctors}
+            />
+          )}
 
-        {activeTab === 'patient-portal' && (
-          <PatientPortal
-            tokens={tokens}
-            onCancelToken={handleCancelToken}
-            onRescheduleToken={(id) => handleNavigateTab('booking')}
-            setActiveTab={handleNavigateTab}
-            onOpenQRModal={(token) => setSelectedTokenForModal(token)}
-            notifications={notifications}
-            authSession={authSession}
-          />
-        )}
+          {activeTab === 'patient-portal' && (
+            <PatientPortal
+              tokens={tokens}
+              onCancelToken={handleCancelToken}
+              onRescheduleToken={(id) => handleNavigateTab('booking')}
+              setActiveTab={handleNavigateTab}
+              onOpenQRModal={(token) => setSelectedTokenForModal(token)}
+              notifications={notifications}
+              authSession={authSession}
+            />
+          )}
 
-        {activeTab === 'booking' && (
-          <BookingModule
-            doctors={doctors}
-            onBookSuccess={handleBookSuccess}
-            setActiveTab={handleNavigateTab}
-          />
-        )}
+          {activeTab === 'booking' && (
+            <BookingModule
+              doctors={doctors}
+              onBookSuccess={handleBookSuccess}
+              setActiveTab={handleNavigateTab}
+            />
+          )}
 
-        {activeTab === 'doctors' && (
-          <DoctorChecker
-            doctors={doctors}
-            setActiveTab={handleNavigateTab}
-          />
-        )}
+          {activeTab === 'doctors' && (
+            <DoctorChecker
+              doctors={doctors}
+              setActiveTab={handleNavigateTab}
+            />
+          )}
 
-        {activeTab === 'queue' && (
-          <QueueTracker
-            tokens={tokens}
-            doctors={doctors}
-            onCallNextToken={handleCallNextToken}
-            onCompleteToken={handleCompleteToken}
-            onSkipToken={handleSkipToken}
-          />
-        )}
+          {activeTab === 'queue' && (
+            <QueueTracker
+              tokens={tokens}
+              doctors={doctors}
+              onCallNextToken={handleCallNextToken}
+              onCompleteToken={handleCompleteToken}
+              onSkipToken={handleSkipToken}
+            />
+          )}
 
-        {activeTab === 'ai-features' && (
-          <AISmartFeatures
-            setActiveTab={handleNavigateTab}
-          />
-        )}
+          {activeTab === 'ai-features' && (
+            <AISmartFeatures
+              setActiveTab={handleNavigateTab}
+            />
+          )}
 
-        {activeTab === 'admin-dashboard' && (
-          <AdminDashboard
-            tokens={tokens}
-            doctors={doctors}
-            authSession={authSession}
-          />
-        )}
+          {activeTab === 'admin-dashboard' && (
+            <AdminDashboard
+              tokens={tokens}
+              doctors={doctors}
+              authSession={authSession}
+            />
+          )}
 
-        {activeTab === 'reception-dashboard' && (
-          <ReceptionDashboard
-            doctors={doctors}
-            tokens={tokens}
-            onIssueWalkInToken={handleIssueWalkInToken}
-            onOpenQRModal={(token) => setSelectedTokenForModal(token)}
-            authSession={authSession}
-          />
-        )}
+          {activeTab === 'reception-dashboard' && (
+            <ReceptionDashboard
+              doctors={doctors}
+              tokens={tokens}
+              onIssueWalkInToken={handleIssueWalkInToken}
+              onOpenQRModal={(token) => setSelectedTokenForModal(token)}
+              authSession={authSession}
+            />
+          )}
 
-        {activeTab === 'doctor-dashboard' && (
-          <DoctorDashboard
-            doctors={doctors}
-            tokens={tokens}
-            onCallNextToken={handleCallNextToken}
-            onCompleteToken={handleCompleteToken}
-            onSkipToken={handleSkipToken}
-            authSession={authSession}
-          />
-        )}
-      </main>
+          {activeTab === 'doctor-dashboard' && (
+            <DoctorDashboard
+              doctors={doctors}
+              tokens={tokens}
+              onCallNextToken={handleCallNextToken}
+              onCompleteToken={handleCompleteToken}
+              onSkipToken={handleSkipToken}
+              authSession={authSession}
+            />
+          )}
+        </main>
+      </ErrorBoundary>
 
       {/* MODALS */}
 

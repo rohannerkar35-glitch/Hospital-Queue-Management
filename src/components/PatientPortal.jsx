@@ -22,7 +22,7 @@ import {
 import { MEDICAL_REPORTS } from '../data/hospitalData';
 
 export default function PatientPortal({ 
-  tokens, 
+  tokens = [], 
   onCancelToken, 
   onRescheduleToken, 
   setActiveTab,
@@ -30,7 +30,7 @@ export default function PatientPortal({
   notifications,
   authSession
 }) {
-  const [activeTab, setPortalTab] = useState('overview'); // overview, appointments, prescriptions, profile
+  const [portalTab, setPortalTab] = useState('overview'); // overview, appointments, prescriptions, profile
   const [userProfile, setUserProfile] = useState({
     name: authSession?.name || 'Om Kulkarni',
     age: authSession?.age || 28,
@@ -42,8 +42,33 @@ export default function PatientPortal({
     emergencyContact: authSession?.emergencyContact || 'Akash Kulkarni (+91 98220 11223)'
   });
 
+  // Synchronize profile if authSession updates
+  React.useEffect(() => {
+    if (authSession) {
+      setUserProfile({
+        name: authSession.name || 'Om Kulkarni',
+        age: authSession.age || 28,
+        gender: authSession.gender || 'Male',
+        phone: authSession.phone || '+91 98220 54321',
+        email: authSession.email || 'om@hospital.in',
+        bloodGroup: authSession.bloodGroup || 'B+',
+        allergies: authSession.allergies || 'None recorded',
+        emergencyContact: authSession.emergencyContact || 'Akash Kulkarni (+91 98220 11223)'
+      });
+    }
+  }, [authSession]);
+
   const activeToken = tokens.find(t => t.status === 'WAITING' || t.status === 'CALLING' || t.status === 'IN_CONSULTATION');
   const pastAppointments = tokens.filter(t => t.status === 'COMPLETED' || t.status === 'CANCELLED');
+
+  const displayName = authSession?.name || (activeToken ? activeToken.patientName : userProfile.name);
+  const initials = displayName
+    .split(' ')
+    .map(n => n[0])
+    .filter(Boolean)
+    .join('')
+    .substring(0, 2)
+    .toUpperCase() || 'OK';
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 py-8 px-4 sm:px-6 lg:px-8">
@@ -56,17 +81,17 @@ export default function PatientPortal({
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 text-2xl font-black shadow-inner">
-                OK
+                {initials}
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl sm:text-3xl font-extrabold">{userProfile.name}</h1>
+                  <h1 className="text-2xl sm:text-3xl font-extrabold">{displayName}</h1>
                   <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-white font-bold text-[10px] uppercase tracking-wider backdrop-blur-sm border border-white/30">
                     Verified Patient
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-rose-100 mt-1">
-                  ID: <span className="font-mono font-bold">PAT-884920</span> • {userProfile.gender}, {userProfile.age} yrs • Blood: <span className="font-bold">{userProfile.bloodGroup}</span>
+                  ID: <span className="font-mono font-bold">{authSession?.patientId || 'PAT-884920'}</span> • {userProfile.gender}, {userProfile.age} yrs • Blood: <span className="font-bold">{userProfile.bloodGroup}</span>
                 </p>
               </div>
             </div>
@@ -119,7 +144,7 @@ export default function PatientPortal({
         </div>
 
         {/* TAB 1: OVERVIEW */}
-        {activeTab === 'overview' && (
+        {portalTab === 'overview' && (
           <div className="space-y-8">
             
             {/* Top 4 Dashboard Summary Cards */}
@@ -177,7 +202,7 @@ export default function PatientPortal({
                   <div>
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Assigned Room</p>
                     <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">
-                      {activeToken ? activeToken.roomNo.split('-')[0] : 'Desk 1'}
+                      {activeToken ? (activeToken.roomNo ? activeToken.roomNo.split('-')[0] : 'Desk 1') : 'Desk 1'}
                     </p>
                   </div>
                   <div className="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-900/50 text-purple-600 flex items-center justify-center font-bold">
@@ -321,7 +346,7 @@ export default function PatientPortal({
         )}
 
         {/* TAB 2: MY TOKENS & APPOINTMENT HISTORY */}
-        {activeTab === 'appointments' && (
+        {portalTab === 'appointments' && (
           <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-700 space-y-6">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">All OPD Tokens & History</h2>
 
@@ -333,7 +358,7 @@ export default function PatientPortal({
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-300 flex items-center justify-center font-black text-sm">
-                      {token.tokenNumber.split('-')[0]}
+                      {token.tokenNumber ? token.tokenNumber.split('-')[0] : 'OPD'}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
@@ -386,7 +411,7 @@ export default function PatientPortal({
         )}
 
         {/* TAB 3: PRESCRIPTIONS */}
-        {activeTab === 'prescriptions' && (
+        {portalTab === 'prescriptions' && (
           <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-700 space-y-6">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">Digital Prescriptions & Medical Reports</h2>
             
@@ -427,7 +452,7 @@ export default function PatientPortal({
         )}
 
         {/* TAB 4: MEDICAL PROFILE */}
-        {activeTab === 'profile' && (
+        {portalTab === 'profile' && (
           <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-700 space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">Patient Medical Profile</h2>

@@ -26,12 +26,12 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
   };
 
   const qrData = JSON.stringify({
-    tokenId: token.id,
-    tokenNumber: token.tokenNumber,
-    patient: token.patientName,
-    doctor: token.doctorName,
-    room: token.roomNo,
-    time: token.slotTime
+    tokenId: token?.id || 'TOKEN-OPD',
+    tokenNumber: token?.tokenNumber || 'OPD-101',
+    patient: token?.patientName || 'Patient',
+    doctor: token?.doctorName || 'Doctor',
+    room: token?.roomNo || 'Desk 1',
+    time: token?.slotTime || '09:00 AM'
   });
 
   return (
@@ -83,11 +83,11 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
             <div className="bg-gradient-to-br from-red-500 via-rose-500 to-red-600 p-5 rounded-2xl text-white shadow-xl shadow-red-500/20 space-y-3 border border-white/20">
               <p className="text-xs uppercase tracking-widest text-rose-100 font-bold">YOUR DIGITAL TOKEN NO.</p>
               <p className="text-4xl sm:text-5xl font-black tracking-tight drop-shadow-md">
-                {token.tokenNumber}
+                {token?.tokenNumber || 'OPD-101'}
               </p>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold border border-white/20">
                 <Clock className="w-3.5 h-3.5" />
-                <span>Est. Consultation in {token.estWaitMins} mins</span>
+                <span>Est. Consultation in {token?.estWaitMins ?? 10} mins</span>
               </div>
             </div>
 
@@ -101,7 +101,7 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
                 fgColor="#E11D48"
               />
               <p className="text-[11px] text-slate-400 font-mono font-bold mt-2">
-                HASH: {token.id.toUpperCase()}
+                HASH: {token?.id ? String(token.id).toUpperCase() : 'PASS-OPD'}
               </p>
             </div>
 
@@ -109,33 +109,33 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
             <div className="text-xs space-y-2.5 text-left bg-slate-50 dark:bg-slate-700/30 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
               <div className="flex justify-between">
                 <span className="text-slate-400 font-semibold">Patient Name:</span>
-                <strong className="text-slate-900 dark:text-white font-bold">{token.patientName}</strong>
+                <strong className="text-slate-900 dark:text-white font-bold">{token?.patientName}</strong>
               </div>
 
               <div className="flex justify-between">
                 <span className="text-slate-400 font-semibold">Attending Doctor:</span>
-                <strong className="text-slate-900 dark:text-white font-bold">{token.doctorName}</strong>
+                <strong className="text-slate-900 dark:text-white font-bold">{token?.doctorName}</strong>
               </div>
 
               <div className="flex justify-between">
                 <span className="text-slate-400 font-semibold">OPD Department:</span>
-                <strong className="text-slate-900 dark:text-white font-bold">{token.department}</strong>
+                <strong className="text-slate-900 dark:text-white font-bold">{token?.department}</strong>
               </div>
 
               <div className="flex justify-between">
                 <span className="text-slate-400 font-semibold">OPD Room No:</span>
-                <strong className="text-red-600 dark:text-red-400 font-bold">{token.roomNo}</strong>
+                <strong className="text-red-600 dark:text-red-400 font-bold">{token?.roomNo}</strong>
               </div>
 
               <div className="flex justify-between">
                 <span className="text-slate-400 font-semibold">Appointment Time:</span>
-                <strong className="text-slate-900 dark:text-white font-bold">{token.slotTime} ({token.date})</strong>
+                <strong className="text-slate-900 dark:text-white font-bold">{token?.slotTime} ({token?.date})</strong>
               </div>
 
               <div className="flex justify-between border-t border-slate-200 dark:border-slate-600 pt-2">
                 <span className="text-slate-400 font-semibold">Queue Position:</span>
                 <strong className="text-red-600 dark:text-red-400 font-black text-sm">
-                  #{token.queuePosition} in queue
+                  {token?.status === 'CALLING' ? 'Now Calling' : token?.queuePosition ? `#${token.queuePosition} in queue` : 'Immediate'}
                 </strong>
               </div>
             </div>
@@ -170,6 +170,20 @@ export default function DigitalTokenPass({ token, onClose, onCancelToken }) {
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Done & Return to Dashboard
           </button>
+
+          {onCancelToken && token?.status !== 'CANCELLED' && token?.status !== 'COMPLETED' && (
+            <button
+              onClick={() => {
+                if (window.confirm('Are you sure you want to cancel this appointment token?')) {
+                  onCancelToken(token.id);
+                  onClose();
+                }
+              }}
+              className="w-full py-1.5 text-center text-[11px] font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+            >
+              Cancel this appointment
+            </button>
+          )}
         </div>
 
       </div>
